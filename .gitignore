@@ -1,0 +1,23 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore virtual environment
+venv/
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore game assets
+assets/
+
+# Ignore logs
+logs/
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
