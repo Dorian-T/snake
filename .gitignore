@@ -12,9 +12,6 @@ venv/
 build/
 dist/
 
-# Ignore game assets
-assets/
-
 # Ignore logs
 logs/
 

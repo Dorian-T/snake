@@ -1,43 +1,118 @@
-# Example file showing a circle moving on screen
+import os
 import pygame
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-running = True
-dt = 0
+from core.game import Game
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+class Window:
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+	# === Attributes ===
 
-    pygame.draw.circle(screen, "red", player_pos, 40)
+	__game: Game
+	__cell_size: int
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+	__screen: pygame.Surface
+	__clock: pygame.time.Clock
 
-    # flip() the display to put your work on screen
-    pygame.display.flip()
+	__apple_header: pygame.Surface
+	__apple_grid: pygame.Surface
 
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    dt = clock.tick(60) / 1000
 
-pygame.quit()
+	# === Constructors ===
+
+	def __init__(self, game: Game):
+		pygame.init()
+
+		# Initialize attributes
+		self.__game = game
+		self.__cell_size = min(pygame.display.Info().current_w, pygame.display.Info().current_h - 100) // (self.__game.get_size() + 1)
+
+		# Initialize pygame
+		self.__screen = pygame.display.set_mode((self.__cell_size * (self.__game.get_size() + 1), self.__cell_size * (self.__game.get_size() + 1) + 70))
+		# os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,0" % ((pygame.display.Info().current_w - self.__cell_size * (self.__game.get_size() + 1)) // 2)
+		pygame.display.set_caption("Snake.py")
+		self.__clock = pygame.time.Clock()
+
+		# Load assets
+		apple_image = pygame.image.load("assets/apple.png")
+		self.__apple_header = pygame.transform.scale(apple_image, (40, 40))
+		self.__apple_grid = pygame.transform.scale(apple_image, (self.__cell_size, self.__cell_size))
+
+
+	# === Public Methods ===
+
+	def is_running(self) -> bool:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				return False
+		return True
+
+	def draw(self):
+		self.__screen.fill("#578a34")
+  
+		self.__draw_header()
+
+		self.__draw_grid()
+
+		# self.screen.blit(pygame.font.Font(None, 36).render(str(self.game), True, "white"), (0, 0))
+		pygame.display.flip()
+		self.__clock.tick(60)
+
+
+	# === Private Methods ===
+
+	def __draw_header(self):
+		self.__screen.fill("#4a752c", pygame.Rect(0, 0, self.__cell_size * (self.__game.get_size() + 1), 70))
+		self.__screen.blit(self.__apple_header, (20, 15))
+		self.__screen.blit(pygame.font.Font(None, 48).render(str(self.__game.get_apple_count()), True, "white"), (70, 23))
+
+	def __draw_grid(self):
+		for y in range(self.__game.get_size()):
+			for x in range(self.__game.get_size()):
+				color = "#aad751" if (x + y) % 2 == 0 else "#a2d149"
+				self.__screen.fill(color, pygame.Rect(self.__cell_size * (x + 0.5), self.__cell_size * (y + 0.5) + 70, self.__cell_size, self.__cell_size))
+				if self.__game.has_apple(x, y):
+					self.__screen.blit(self.__apple_grid, (self.__cell_size * (x + 0.5), self.__cell_size * (y + 0.5) + 70))
+
+
+
+# # pygame setup
+# pygame.init()
+# screen = pygame.display.set_mode((1280, 720))
+# clock = pygame.time.Clock()
+# running = True
+# dt = 0
+
+# player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+
+# while running:
+#     # poll for events
+#     # pygame.QUIT event means the user clicked X to close your window
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
+
+#     # fill the screen with a color to wipe away anything from last frame
+#     screen.fill("purple")
+
+#     pygame.draw.circle(screen, "red", player_pos, 40)
+
+#     keys = pygame.key.get_pressed()
+#     if keys[pygame.K_w]:
+#         player_pos.y -= 300 * dt
+#     if keys[pygame.K_s]:
+#         player_pos.y += 300 * dt
+#     if keys[pygame.K_a]:
+#         player_pos.x -= 300 * dt
+#     if keys[pygame.K_d]:
+#         player_pos.x += 300 * dt
+
+#     # flip() the display to put your work on screen
+#     pygame.display.flip()
+
+#     # limits FPS to 60
+#     # dt is delta time in seconds since last frame, used for framerate-
+#     # independent physics.
+#     dt = clock.tick(60) / 1000
+
+# pygame.quit()
