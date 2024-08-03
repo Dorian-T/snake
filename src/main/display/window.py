@@ -43,12 +43,6 @@ class Window:
 
 	# === Public Methods ===
 
-	def is_running(self) -> bool:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				return False
-		return True
-
 	def draw(self):
 		self.__screen.fill("#578a34")
   

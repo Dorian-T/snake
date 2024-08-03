@@ -11,6 +11,8 @@ class Game:
 	__SIZE: int = 15
 	__grid: Grid
 	__snake: Snake
+	__game_over: bool
+	__apple_count: int
 
 
 	# === Constructors ===
@@ -19,6 +21,8 @@ class Game:
 		self.__grid = Grid(self.__SIZE)
 		self.__grid.add_apple(12, 7)
 		self.__snake = Snake(3, 7, 3)
+		self.__game_over = False
+		self.__apple_count = 0
 
 
 	# === Getters ===
@@ -33,7 +37,7 @@ class Game:
 		return self.__SIZE
 	
 	def get_apple_count(self) -> int: # TODO
-		return 0
+		return self.__apple_count
 	
 	def has_apple(self, x: int, y: int) -> bool:
 		return self.__grid.has_apple(x, y)
@@ -41,34 +45,34 @@ class Game:
 	def get_snake(self) -> Snake:
 		return self.__snake
 	
-	def is_over(self) -> bool: # TODO
+	def is_over(self) -> bool:
 		"""
 		Returns whether the game is over.
 
 		Returns:
 			bool: Whether the game is over.
 		"""
-		return False
-	
+		return self.__game_over
+		
 
 	# === Public Methods ===
 
 	def handle_key(self, key: int):
 		if key == pygame.K_UP or key == pygame.K_z:
 			self.__snake.set_direction(0)
-			print("up")
 		elif key == pygame.K_RIGHT or key == pygame.K_d:
 			self.__snake.set_direction(1)
-			print("right")
 		elif key == pygame.K_DOWN or key == pygame.K_s:
 			self.__snake.set_direction(2)
-			print("down")
 		elif key == pygame.K_LEFT or key == pygame.K_q:
 			self.__snake.set_direction(3)
-			print("left")
-	
-	def update(self): # TODO
+
+	def update(self):
 		"""
 		Updates the game state.
 		"""
-		pass
+		result = self.__snake.move(self.__grid, self.__SIZE)
+		if result == -1:
+			self.__game_over = True
+		elif result == 1:
+			self.__apple_count += 1
