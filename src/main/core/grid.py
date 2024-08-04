@@ -21,6 +21,18 @@ class Grid:
 		self.__tab = [[False for _ in range(size)] for _ in range(size)]
 
 
+	# === Getters ===
+
+	def get_size(self) -> int:
+		"""
+		Returns the size of the grid.
+
+		Returns:
+			int: The size of the grid.
+		"""
+		return len(self.__tab)
+
+
 	# === Public Methods ===
 
 	def has_apple(self, x: int, y: int) -> bool:

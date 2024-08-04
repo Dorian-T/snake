@@ -27,6 +27,9 @@ class Game:
 
 	# === Getters ===
 
+	def get_grid(self) -> Grid:
+		return self.__grid
+
 	def get_size(self) -> int:
 		"""
 		Returns the size of the grid.
