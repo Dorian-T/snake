@@ -55,7 +55,4 @@ class Window:
 		self.__clock.tick(60)
 
 	def draw_menu(self) -> bool:
-		return self.__menu.draw(0, 0) # TODO: Add record
-
-	def draw_game_over(self) -> bool:
 		return self.__menu.draw(self.__game.get_apple_count(), 0) # TODO: Add record
