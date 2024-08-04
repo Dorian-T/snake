@@ -14,9 +14,11 @@ def main():
 	run(game, window)
 
 def run(game: Game, window: Window):
+	record = 0
+
 	while True:
 		# Main menu
-		if not window.draw_menu():
+		if not window.draw_menu(record):
 			break
 
 		# Game
@@ -42,6 +44,9 @@ def run(game: Game, window: Window):
 					frame_counter = 0
 
 			clock.tick(60) # 15 cases en 2 secondes
+
+		# Game over
+		record = game.get_apple_count() if game.get_apple_count() > record else record
 
 	# Quit
 	pygame.quit()
