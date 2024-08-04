@@ -10,7 +10,7 @@ class SnakeRenderer:
 	__cell_size: int
 	__screen: pygame.Surface
 
-	__eyes: pygame.Surface
+	__snake_head: pygame.Surface
 
 
 	# === Constructors and Destructors ===
@@ -19,7 +19,7 @@ class SnakeRenderer:
 		self.__cell_size = cell_size
 		self.__screen = screen
 
-		self.__eyes = pygame.transform.scale(pygame.image.load("assets/eyes.png"), (self.__cell_size // 2, self.__cell_size))
+		self.__snake_head = pygame.transform.scale(pygame.image.load("assets/snake_head.png"), (self.__cell_size, self.__cell_size))
 
 
 	# === Public Methods ===
@@ -38,13 +38,11 @@ class SnakeRenderer:
 		head = snake.get_head()
 		direction = snake.get_direction()
 
-		self.__screen.fill("#4f7ded", pygame.Rect(self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70, self.__cell_size, self.__cell_size))
-
 		if direction == 0:
-			self.__screen.blit(pygame.transform.rotate(self.__eyes, 90), (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 1) + 70))
+			self.__screen.blit(pygame.transform.rotate(self.__snake_head, 90), (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70))
 		elif direction == 1:
-			self.__screen.blit(self.__eyes, (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70))
+			self.__screen.blit(self.__snake_head, (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70))
 		elif direction == 2:
-			self.__screen.blit(pygame.transform.rotate(self.__eyes, 270), (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70))
+			self.__screen.blit(pygame.transform.rotate(self.__snake_head, 270), (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70))
 		elif direction == 3:
-			self.__screen.blit(pygame.transform.rotate(self.__eyes, 180), (self.__cell_size * (head[0] + 1), self.__cell_size * (head[1] + 0.5) + 70))
+			self.__screen.blit(pygame.transform.rotate(self.__snake_head, 180), (self.__cell_size * (head[0] + 0.5), self.__cell_size * (head[1] + 0.5) + 70))
