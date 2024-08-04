@@ -8,11 +8,21 @@ class Menu:
 
 	__screen: pygame.Surface
 
+	__menu_picture: pygame.Surface
+	__apple: pygame.Surface
+	__trophy: pygame.Surface
+	__play_button: pygame.Surface
+
 
 	# === Constructors and Destructors ===
 
 	def __init__(self, screen: pygame.Surface):
 		self.__screen = screen
+
+		self.__menu_picture = pygame.image.load("assets/menu.png")
+		self.__apple = pygame.transform.scale(pygame.image.load("assets/apple.png"), (60, 60))
+		self.__trophy = pygame.transform.scale(pygame.image.load("assets/trophy.png"), (60, 60))
+		self.__play_button = pygame.image.load("assets/play.svg")
 
 
 	# === Public Methods ===
@@ -48,13 +58,11 @@ class Menu:
 
 		# Picture
 		self.__screen.fill("#4dc1f9", pygame.Rect(x, y, 300, 366))
-		picture = pygame.image.load("assets/menu.png")
-		self.__screen.blit(picture, (x, y))
+		self.__screen.blit(self.__menu_picture, (x, y))
 
 	def __draw_apple_count(self, x: int, y: int, apple_count: int):
 		# Apple
-		apple = pygame.transform.scale(pygame.image.load("assets/apple.png"), (60, 60))
-		self.__screen.blit(apple, (x + 60, y + 60))
+		self.__screen.blit(self.__apple, (x + 60, y + 60))
 
 		# Text
 		text_surface = pygame.font.Font(None, 48).render(str(apple_count), True, "white")
@@ -65,8 +73,7 @@ class Menu:
 
 	def __draw_record(self, x: int, y: int, record: int):
 		# Trophy
-		trophy = pygame.transform.scale(pygame.image.load("assets/trophy.png"), (60, 60))
-		self.__screen.blit(trophy, (x + 180, y + 60))
+		self.__screen.blit(self.__trophy, (x + 180, y + 60))
 
 		# Text
 		text_surface = pygame.font.Font(None, 48).render(str(record), True, "white")
@@ -81,11 +88,10 @@ class Menu:
 		self.__screen.fill("#1155cc", rect)
 
 		# Play icon
-		play_button = pygame.image.load("assets/play.svg")
-		play_button_rect = play_button.get_rect()
+		play_button_rect = self.__play_button.get_rect()
 		play_button_rect.x = x + 24
 		play_button_rect.centery = y + 400
-		self.__screen.blit(play_button, play_button_rect)
+		self.__screen.blit(self.__play_button, play_button_rect)
 
 		# Text
 		text_surface = pygame.font.Font(None, 32).render("Jouer", True, "white")
