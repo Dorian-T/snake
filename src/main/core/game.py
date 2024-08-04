@@ -5,6 +5,16 @@ from .snake import Snake
 
 
 class Game:
+	"""A class representing the game state.
+
+	Attributes:
+		__SIZE (int): The size of the grid.
+		__grid (Grid): The grid.
+		__snake (Snake): The snake.
+		__game_over (bool): Whether the game is over.
+		__apple_count (int): The number of apples eaten.
+	"""
+
 
 	# === Attributes ===
 
@@ -18,9 +28,17 @@ class Game:
 	# === Constructors ===
 
 	def __init__(self):
+		"""
+		Initializes the Game object by calling the __init method.
+		"""
+
 		self.__init()
 
 	def __init(self):
+		"""
+		Initializes the Game object.
+		"""
+
 		self.__grid = Grid(self.__SIZE)
 		self.__grid.add_apple(12, 7)
 		self.__snake = Snake(3, 7, 3)
@@ -31,6 +49,13 @@ class Game:
 	# === Getters ===
 
 	def get_grid(self) -> Grid:
+		"""
+		Returns the grid.
+
+		Returns:
+			Grid: The grid.
+		"""
+
 		return self.__grid
 
 	def get_size(self) -> int:
@@ -43,12 +68,37 @@ class Game:
 		return self.__SIZE
 	
 	def get_apple_count(self) -> int:
+		"""
+		Returns the number of apples collected in the game.
+
+		Returns:
+			int: The number of apples collected.
+		"""
+
 		return self.__apple_count
 	
 	def has_apple(self, x: int, y: int) -> bool:
+		"""
+		Returns whether the grid has an apple at the given position.
+
+		Args:
+			x (int): The x-coordinate.
+			y (int): The y-coordinate.
+
+		Returns:
+			bool: Whether the grid has an apple at the given position
+		"""
+
 		return self.__grid.has_apple(x, y)
 	
 	def get_snake(self) -> Snake:
+		"""
+		Returns the snake.
+
+		Returns:
+			Snake: The snake.
+		"""
+
 		return self.__snake
 	
 	def is_over(self) -> bool:
@@ -58,12 +108,20 @@ class Game:
 		Returns:
 			bool: Whether the game is over.
 		"""
+
 		return self.__game_over
 		
 
 	# === Public Methods ===
 
 	def handle_key(self, key: int):
+		"""
+		Handles the key event.
+
+		Args:
+			key (int): The key event.
+		"""
+
 		if key == pygame.K_UP or key == pygame.K_z:
 			self.__snake.set_direction(0)
 		elif key == pygame.K_RIGHT or key == pygame.K_d:
@@ -77,6 +135,7 @@ class Game:
 		"""
 		Updates the game state.
 		"""
+
 		result = self.__snake.move(self.__grid, self.__SIZE)
 		if result == -1:
 			self.__game_over = True
@@ -84,4 +143,8 @@ class Game:
 			self.__apple_count += 1
 
 	def reset(self):
+		"""
+		Resets the game state by calling the __init method.
+		"""
+
 		self.__init()

@@ -8,12 +8,23 @@ from display.window import Window
 
 
 def main():
+	"""
+	The main function of the game.
+	"""
 	pygame.init()
 	game = Game()
 	window = Window(game)
 	run(game, window)
 
 def run(game: Game, window: Window):
+	"""
+	Runs the game.
+
+	Args:
+		game (Game): The game.
+		window (Window): The window.
+	"""
+
 	record = 0
 
 	while True:

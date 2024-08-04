@@ -8,6 +8,21 @@ from .snake_renderer import SnakeRenderer
 
 
 class Window:
+	"""
+	A class responsible for rendering the game.
+
+	Attributes:
+		__game (Game): The game.
+		__cell_size (int): The size of a cell.
+
+		__screen (pygame.Surface): The screen.
+		__clock (pygame.time.Clock): The clock.
+
+		__snake_renderer (SnakeRenderer): The snake renderer.
+		__grid_renderer (GridRenderer): The grid renderer.
+		__menu (Menu): The menu.
+	"""
+
 
 	# === Attributes ===
 
@@ -25,6 +40,13 @@ class Window:
 	# === Constructors and Destructors ===
 
 	def __init__(self, game: Game):
+		"""
+		Initializes the window.
+
+		Args:
+			game (Game): The game.
+		"""
+
 		# Initialize attributes
 		self.__game = game
 		self.__cell_size = min(pygame.display.Info().current_w, pygame.display.Info().current_h - 100) // (self.__game.get_size() + 1)
@@ -40,12 +62,23 @@ class Window:
 		self.__menu = Menu(self.__screen)
 
 	def __del__(self):
+		"""
+		Destroys the window.
+		"""
+
 		pygame.quit()
 
 
 	# === Public Methods ===
 
 	def draw(self, record: int):
+		"""
+		Draws the game.
+
+		Args:
+			record (int): The record.
+		"""
+
 		self.__screen.fill("#578a34")
   
 		self.__grid_renderer.draw(self.__game.get_grid(), self.__game.get_apple_count(), record)
@@ -55,4 +88,14 @@ class Window:
 		self.__clock.tick(60)
 
 	def draw_menu(self, record: int) -> bool:
+		"""
+		Draws the menu.
+
+		Args:
+			record (int): The record.
+
+		Returns:
+			bool: Whether the game should start.
+		"""
+
 		return self.__menu.draw(self.__game.get_apple_count(), record)

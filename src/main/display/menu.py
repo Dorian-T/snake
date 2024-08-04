@@ -3,6 +3,18 @@ import pygame
 from core.game import Game
 
 class Menu:
+	"""
+	A class representing the menu of the game.
+
+	Attributes:
+		__screen (pygame.Surface): The screen.
+
+		__menu_picture (pygame.Surface): The menu picture.
+		__apple (pygame.Surface): The apple image.
+		__trophy (pygame.Surface): The trophy image.
+		__play_button (pygame.Surface): The play button
+	"""
+
 
 	# === Attributes ===
 
@@ -17,6 +29,13 @@ class Menu:
 	# === Constructors and Destructors ===
 
 	def __init__(self, screen: pygame.Surface):
+		"""
+		Initializes the menu.
+
+		Args:
+			screen (pygame.Surface): The screen.
+		"""
+
 		self.__screen = screen
 
 		self.__menu_picture = pygame.image.load("assets/menu.png")
@@ -28,6 +47,17 @@ class Menu:
 	# === Public Methods ===
 
 	def draw(self, apple_count: int, record: int) -> bool:
+		"""
+		Draws the menu.
+
+		Args:
+			apple_count (int): The number of apples eaten.
+			record (int): The record.
+
+		Returns:
+			bool: Whether the game should start.
+		"""
+
 		x = self.__screen.get_width() // 2 - 150
 		y = self.__screen.get_height() // 2 - 158
 
@@ -51,6 +81,14 @@ class Menu:
 	# === Private Methods ===
 
 	def __draw_background(self, x: int, y: int):
+		"""
+		Draws the background of the menu.
+
+		Args:
+			x (int): The x-coordinate of the top-left corner.
+			y (int): The y-coordinate of the top-left corner.
+		"""
+
 		# Background
 		overlay = pygame.Surface((self.__screen.get_width(), self.__screen.get_height()), pygame.SRCALPHA)
 		overlay.fill((0, 0, 0, 128))
@@ -61,6 +99,15 @@ class Menu:
 		self.__screen.blit(self.__menu_picture, (x, y))
 
 	def __draw_apple_count(self, x: int, y: int, apple_count: int):
+		"""
+		Draws the apple count.
+
+		Args:
+			x (int): The x-coordinate of the top-left corner.
+			y (int): The y-coordinate of the top-left corner.
+			apple_count (int): The number of apples
+		"""
+
 		# Apple
 		self.__screen.blit(self.__apple, (x + 60, y + 60))
 
@@ -72,6 +119,15 @@ class Menu:
 		self.__screen.blit(text_surface, text_rect)
 
 	def __draw_record(self, x: int, y: int, record: int):
+		"""
+		Draws the record.
+
+		Args:
+			x (int): The x-coordinate of the top-left corner.
+			y (int): The y-coordinate of the top-left corner.
+			record (int): The record.
+		"""
+
 		# Trophy
 		self.__screen.blit(self.__trophy, (x + 180, y + 60))
 
@@ -83,6 +139,17 @@ class Menu:
 		self.__screen.blit(text_surface, text_rect)
 
 	def draw_play_button(self, x: int, y: int) -> pygame.Rect:
+		"""
+		Draws the play button.
+
+		Args:
+			x (int): The x-coordinate of the top-left corner.
+			y (int): The y-coordinate of the top-left corner.
+
+		Returns:
+			pygame.Rect: The button.
+		"""
+
 		# Button
 		rect = pygame.Rect(x, y + 376, 300, 48)
 		self.__screen.fill("#1155cc", rect)

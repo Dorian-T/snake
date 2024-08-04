@@ -4,6 +4,16 @@ from core.snake import Snake
 
 
 class SnakeRenderer:
+	"""
+	A class responsible for rendering the snake.
+
+	Attributes:
+		__cell_size (int): The size of a cell.
+		__screen (pygame.Surface): The screen.
+
+		__snake_head (pygame.Surface): The snake head image.
+	"""
+
 
 	# === Attributes ===
 
@@ -16,6 +26,14 @@ class SnakeRenderer:
 	# === Constructors and Destructors ===
 
 	def __init__(self, cell_size: int, screen: pygame.Surface):
+		"""
+		Initializes the snake renderer.
+
+		Args:
+			cell_size (int): The size of a cell.
+			screen (pygame.Surface): The screen.
+		"""
+
 		self.__cell_size = cell_size
 		self.__screen = screen
 
@@ -25,6 +43,13 @@ class SnakeRenderer:
 	# === Public Methods ===
 
 	def draw(self, snake: Snake):
+		"""
+		Draws the snake.
+
+		Args:
+			snake (Snake): The snake.
+		"""
+
 		# self.__screen.fill("#4f7ded", pygame.Rect(self.__cell_size * (snake.get_head()[0] + 0.5), self.__cell_size * (snake.get_head()[1] + 0.5) + 70, self.__cell_size, self.__cell_size))
 		self.__draw_snake_head(snake)
 
@@ -35,6 +60,13 @@ class SnakeRenderer:
 	# === Private Methods ===
 
 	def __draw_snake_head(self, snake):
+		"""
+		Draws the snake head.
+
+		Args:
+			snake (Snake): The snake.
+		"""
+
 		head = snake.get_head()
 		direction = snake.get_direction()
 
