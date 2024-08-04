@@ -11,28 +11,42 @@ def main():
 	pygame.init()
 	game = Game()
 	window = Window(game)
-	clock = pygame.time.Clock()
+	run(game, window)
 
-	frame_counter = 0
+def run(game: Game, window: Window):
+	while True:
+		# Main menu
+		if not window.draw_menu():
+			break
 
-	while not game.is_over():
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				pygame.quit()
-				sys.exit()
-			elif event.type == pygame.KEYDOWN:
-				game.handle_key(event.key)
+		# Game
+		game.reset()
+		clock = pygame.time.Clock()
+		frame_counter = 0
+		while not game.is_over():
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					pygame.quit()
+					sys.exit()
+				elif event.type == pygame.KEYDOWN:
+					game.handle_key(event.key)
+			
+			frame_counter += 1
+			if frame_counter == 8:
+				game.update()
+				window.draw()
+				frame_counter = 0
 
-		frame_counter += 1
-		if frame_counter == 8:
-			game.update()
-			window.draw()
-			frame_counter = 0
+			clock.tick(60) # 15 cases en 2 secondes
 
-		clock.tick(60) # 15 cases en 2 secondes
-	
-	print("Game Over")
+		# Game over
+		if not window.draw_game_over():
+			break
+
+	# Quit
 	pygame.quit()
+	sys.exit()
+
 
 if __name__ == "__main__":
 	main()

@@ -18,6 +18,9 @@ class Game:
 	# === Constructors ===
 
 	def __init__(self):
+		self.__init()
+
+	def __init(self):
 		self.__grid = Grid(self.__SIZE)
 		self.__grid.add_apple(12, 7)
 		self.__snake = Snake(3, 7, 3)
@@ -39,7 +42,7 @@ class Game:
 		"""
 		return self.__SIZE
 	
-	def get_apple_count(self) -> int: # TODO
+	def get_apple_count(self) -> int:
 		return self.__apple_count
 	
 	def has_apple(self, x: int, y: int) -> bool:
@@ -79,3 +82,6 @@ class Game:
 			self.__game_over = True
 		elif result == 1:
 			self.__apple_count += 1
+
+	def reset(self):
+		self.__init()

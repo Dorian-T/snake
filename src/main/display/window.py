@@ -3,6 +3,7 @@ from pygame import font
 
 from core.game import Game
 from .grid_renderer import GridRenderer
+from .menu import Menu
 from .snake_renderer import SnakeRenderer
 
 
@@ -18,6 +19,7 @@ class Window:
 
 	__snake_renderer: SnakeRenderer
 	__grid_renderer: GridRenderer
+	__menu: Menu
 
 
 	# === Constructors and Destructors ===
@@ -35,6 +37,7 @@ class Window:
 		# Initialize renderers
 		self.__snake_renderer = SnakeRenderer(self.__cell_size, self.__screen)
 		self.__grid_renderer = GridRenderer(self.__cell_size, self.__screen)
+		self.__menu = Menu(self.__screen)
 
 	def __del__(self):
 		pygame.quit()
@@ -51,22 +54,8 @@ class Window:
 		pygame.display.flip()
 		self.__clock.tick(60)
 
-	def draw_game_over(self): # TODO: move into a Menu class
-		x = self.__screen.get_width() // 2 - 150
-		y = self.__screen.get_height() // 2 - 158
+	def draw_menu(self) -> bool:
+		return self.__menu.draw(0, 0) # TODO: Add record
 
-		self.__screen.fill("#4dc1f9", pygame.Rect(x, y, 300, 366))
-		picture = pygame.image.load("assets/menu.png")
-		self.__screen.blit(picture, (x, y))
-
-		apple = pygame.transform.scale(pygame.image.load("assets/apple.png"), (60, 60))
-		self.__screen.blit(apple, (x + 60, y + 60))
-		text_surface = pygame.font.Font(None, 48).render(str(self.__game.get_apple_count()), True, "white")
-		text_rect = text_surface.get_rect()
-		text_rect.centerx = x + 90
-		text_rect.y = y + 120
-		self.__screen.blit(text_surface, text_rect)
-
-		pygame.display.flip()
-
-		pygame.time.wait(3000)
+	def draw_game_over(self) -> bool:
+		return self.__menu.draw(self.__game.get_apple_count(), 0) # TODO: Add record
