@@ -18,7 +18,7 @@ def run(game: Game, window: Window):
 
 	while True:
 		# Main menu
-		window.draw()
+		window.draw(record)
 		if not window.draw_menu(record):
 			break
 
@@ -27,7 +27,7 @@ def run(game: Game, window: Window):
 		clock = pygame.time.Clock()
 		frame_counter = 0
 		start_to_move = False
-		window.draw()
+		window.draw(record)
 		while not game.is_over():
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -41,7 +41,7 @@ def run(game: Game, window: Window):
 				frame_counter += 1
 				if frame_counter == 8:
 					game.update()
-					window.draw()
+					window.draw(record)
 					frame_counter = 0
 
 			clock.tick(60) # 15 cases en 2 secondes

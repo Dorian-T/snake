@@ -45,10 +45,10 @@ class Window:
 
 	# === Public Methods ===
 
-	def draw(self):
+	def draw(self, record: int):
 		self.__screen.fill("#578a34")
   
-		self.__grid_renderer.draw(self.__game.get_grid(), self.__game.get_apple_count())
+		self.__grid_renderer.draw(self.__game.get_grid(), self.__game.get_apple_count(), record)
 		self.__snake_renderer.draw(self.__game.get_snake())
 
 		pygame.display.flip()
