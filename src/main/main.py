@@ -18,6 +18,7 @@ def run(game: Game, window: Window):
 
 	while True:
 		# Main menu
+		window.draw()
 		if not window.draw_menu(record):
 			break
 

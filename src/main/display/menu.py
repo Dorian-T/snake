@@ -41,6 +41,12 @@ class Menu:
 	# === Private Methods ===
 
 	def __draw_background(self, x: int, y: int):
+		# Background
+		overlay = pygame.Surface((self.__screen.get_width(), self.__screen.get_height()), pygame.SRCALPHA)
+		overlay.fill((0, 0, 0, 128))
+		self.__screen.blit(overlay, (0, 0))
+
+		# Picture
 		self.__screen.fill("#4dc1f9", pygame.Rect(x, y, 300, 366))
 		picture = pygame.image.load("assets/menu.png")
 		self.__screen.blit(picture, (x, y))
