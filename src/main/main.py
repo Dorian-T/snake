@@ -66,7 +66,6 @@ def run(game: Game, window: Window):
 
 	# Quit
 	pygame.quit()
-	sys.exit()
 
 
 if __name__ == "__main__":

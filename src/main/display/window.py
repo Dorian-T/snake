@@ -37,7 +37,7 @@ class Window:
 	__menu: Menu
 
 
-	# === Constructors and Destructors ===
+	# === Constructors ===
 
 	def __init__(self, game: Game):
 		"""
@@ -61,13 +61,6 @@ class Window:
 		self.__grid_renderer = GridRenderer(self.__cell_size, self.__screen)
 		self.__menu = Menu(self.__screen)
 
-	def __del__(self):
-		"""
-		Destroys the window.
-		"""
-
-		pygame.quit()
-
 
 	# === Public Methods ===
 
@@ -85,7 +78,6 @@ class Window:
 		self.__snake_renderer.draw(self.__game.get_snake())
 
 		pygame.display.flip()
-		self.__clock.tick(60)
 
 	def draw_menu(self, record: int) -> bool:
 		"""
