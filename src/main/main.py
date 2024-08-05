@@ -26,8 +26,9 @@ def run(game: Game, window: Window):
 	"""
 
 	record = 0
+	running = True
 
-	while True:
+	while running:
 		# Main menu
 		window.draw(record)
 		if not window.draw_menu(record):
@@ -42,11 +43,14 @@ def run(game: Game, window: Window):
 		while not game.is_over():
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
-					pygame.quit()
-					sys.exit()
+					running = False
+					break
 				elif event.type == pygame.KEYDOWN:
 					start_to_move = True
 					game.handle_key(event.key)
+
+			if not running:
+				break
 			
 			if start_to_move:
 				frame_counter += 1
@@ -58,7 +62,7 @@ def run(game: Game, window: Window):
 			clock.tick(60) # 15 cases en 2 secondes
 
 		# Game over
-		record = game.get_apple_count() if game.get_apple_count() > record else record
+		record = max(game.get_apple_count(), record)
 
 	# Quit
 	pygame.quit()

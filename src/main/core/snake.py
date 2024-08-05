@@ -40,7 +40,7 @@ class Snake:
 			))
 
 
-	# === Public Methods ===
+	# === Getters ===
 
 	def get_direction(self) -> int:
 		"""
@@ -76,6 +76,9 @@ class Snake:
 		"""
 
 		return self.__body[0]
+	
+
+	# === Setters ===
 
 	def set_direction(self, direction: int):
 		"""
@@ -92,6 +95,9 @@ class Snake:
 
 		if direction % 2 != self.__direction % 2:
 			self.__direction = direction
+
+
+	# === Public Methods ===
 
 	def move(self, grid: Grid, size: int) -> int:
 		"""
@@ -125,7 +131,7 @@ class Snake:
 			# If the snake has not eaten an apple, remove the last part of its body
 			if grid.has_apple(new_head[0], new_head[1]):
 				grid.remove_apple(self.__body[0][0], self.__body[0][1])
-				grid.add_random_apple()
+				grid.add_random_apple(self.__body)
 				return 1
 			else:
 				self.__body.pop()

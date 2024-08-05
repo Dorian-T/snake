@@ -80,9 +80,16 @@ class Grid:
 
 		self.__tab[y][x] = False
 
-	def add_random_apple(self):
+	def add_random_apple(self, snake: list):
 		"""
 		Adds an apple to a random empty cell of the grid.
 		"""
 
-		self.add_apple(random.randint(0, len(self.__tab[0]) - 1), random.randint(0, len(self.__tab) - 1))
+		find = False
+
+		while not find:
+			x = random.randint(0, len(self.__tab[0]) - 1)
+			y = random.randint(0, len(self.__tab) - 1)
+			if (x, y) not in snake:
+				find = True
+				self.add_apple(x, y)
