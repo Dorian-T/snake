@@ -1,7 +1,8 @@
 import sys
+import os
 from pathlib import Path
 import pygame
-sys.path.append(str(Path(__file__).resolve().parent))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 from core.game import Game
 from display.window import Window

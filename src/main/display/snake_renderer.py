@@ -1,6 +1,7 @@
 import pygame
 
 from core.snake import Snake
+from src.main.utils import resource_path
 
 
 class SnakeRenderer:
@@ -37,7 +38,7 @@ class SnakeRenderer:
 		self.__cell_size = cell_size
 		self.__screen = screen
 
-		self.__snake_head = pygame.transform.scale(pygame.image.load("assets/snake_head.png"), (self.__cell_size, self.__cell_size))
+		self.__snake_head = pygame.transform.scale(pygame.image.load(resource_path("assets/snake_head.png")), (self.__cell_size, self.__cell_size))
 
 
 	# === Public Methods ===

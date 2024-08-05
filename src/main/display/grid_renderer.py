@@ -1,6 +1,7 @@
 import pygame
 
 from core.grid import Grid
+from src.main.utils import resource_path
 
 
 class GridRenderer:
@@ -41,10 +42,10 @@ class GridRenderer:
 		self.__cell_size = cell_size
 		self.__screen = screen
 
-		apple_image = pygame.image.load("assets/apple.png")
+		apple_image = pygame.image.load(resource_path("assets/apple.png"))
 		self.__apple_grid = pygame.transform.scale(apple_image, (self.__cell_size, self.__cell_size))
 		self.__apple_header = pygame.transform.scale(apple_image, (40, 40))
-		self.__trophy = pygame.transform.scale(pygame.image.load("assets/trophy.png"), (40, 40))
+		self.__trophy = pygame.transform.scale(pygame.image.load(resource_path("assets/trophy.png")), (40, 40))
 
 
 	# === Public Methods ===

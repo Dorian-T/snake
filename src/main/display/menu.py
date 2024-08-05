@@ -1,6 +1,7 @@
 import pygame
 
 from core.game import Game
+from src.main.utils import resource_path
 
 class Menu:
 	"""
@@ -38,10 +39,10 @@ class Menu:
 
 		self.__screen = screen
 
-		self.__menu_picture = pygame.image.load("assets/menu.png")
-		self.__apple = pygame.transform.scale(pygame.image.load("assets/apple.png"), (60, 60))
-		self.__trophy = pygame.transform.scale(pygame.image.load("assets/trophy.png"), (60, 60))
-		self.__play_button = pygame.image.load("assets/play.svg")
+		self.__menu_picture = pygame.image.load(resource_path("assets/menu.png"))
+		self.__apple = pygame.transform.scale(pygame.image.load(resource_path("assets/apple.png")), (60, 60))
+		self.__trophy = pygame.transform.scale(pygame.image.load(resource_path("assets/trophy.png")), (60, 60))
+		self.__play_button = pygame.image.load(resource_path("assets/play.svg"))
 
 
 	# === Public Methods ===
